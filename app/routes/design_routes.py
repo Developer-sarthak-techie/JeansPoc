@@ -577,7 +577,8 @@ def save_upload(upload_file):
 
 @router.post("/engine/featureGrading")
 async def feature_grading(
-    texture: UploadFile = File(...),
+    texture: UploadFile = File(None),
+    file_path: str = Form(None),
     size: int = Form(...),
     dpi: int = Form(300)
 ):
@@ -585,7 +586,13 @@ async def feature_grading(
         return {"error": "Supported sizes: 32, 34"}
 
     os.makedirs("outputs", exist_ok=True)
-    input_path = save_upload(texture)
+
+    if file_path and os.path.isfile(file_path):
+        input_path = file_path
+    elif texture and texture.filename:
+        input_path = save_upload(texture)
+    else:
+        return {"status": "error", "message": "Provide either a file upload (texture) or a local file_path"}
 
     try:
         engine = FeatureGradingEngine(

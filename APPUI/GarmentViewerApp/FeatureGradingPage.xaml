@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="GarmentViewerApp.FeatureGradingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#0E0E0E">
+
+    <Grid>
+
+        <!-- MAIN CONTENT -->
+        <Grid Padding="30"
+              RowDefinitions="Auto,Auto,Auto,*"
+              RowSpacing="20">
+
+            <!-- HEADER -->
+            <Label Text="Feature Grading"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White" />
+
+            <!-- FILE PICKER ROW -->
+            <HorizontalStackLayout Grid.Row="1" Spacing="15">
+                <Button Text="Select TIFF File"
+                        Clicked="OnPickFileClicked"
+                        BackgroundColor="#A50021"
+                        TextColor="White"
+                        Padding="16,10"
+                        CornerRadius="6"/>
+
+                <Label x:Name="SelectedFileLabel"
+                       Text="No file selected"
+                       VerticalOptions="Center"
+                       TextColor="Gray"
+                       FontSize="14"/>
+            </HorizontalStackLayout>
+
+            <!-- SIZE + PROCESS ROW -->
+            <HorizontalStackLayout Grid.Row="2" Spacing="20">
+
+                <Label Text="Target Size:"
+                       VerticalOptions="Center"
+                       TextColor="White"
+                       FontSize="15"/>
+
+                <HorizontalStackLayout Spacing="8">
+                    <Button x:Name="Size32Btn"
+                            Text="32"
+                            Clicked="OnSizeClicked"
+                            BackgroundColor="#A50021"
+                            TextColor="White"
+                            WidthRequest="60"
+                            HeightRequest="40"
+                            CornerRadius="6"/>
+
+                    <Button x:Name="Size34Btn"
+                            Text="34"
+                            Clicked="OnSizeClicked"
+                            BackgroundColor="#1E1E1E"
+                            TextColor="White"
+                            WidthRequest="60"
+                            HeightRequest="40"
+                            CornerRadius="6"/>
+                </HorizontalStackLayout>
+
+                <Button x:Name="ProcessButton"
+                        Text="Process Grading"
+                        Clicked="OnProcessClicked"
+                        BackgroundColor="#A50021"
+                        TextColor="White"
+                        Padding="20,10"
+                        CornerRadius="6"
+                        FontAttributes="Bold"/>
+
+                <!-- SPACER -->
+                <BoxView WidthRequest="30" Color="Transparent"/>
+
+                <!-- PNG / TIFF TOGGLE -->
+                <Border x:Name="ViewToggleContainer"
+                        BackgroundColor="#1A1A1A"
+                        Padding="4"
+                        StrokeThickness="0"
+                        IsVisible="False">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="6"/>
+                    </Border.StrokeShape>
+
+                    <HorizontalStackLayout Spacing="4">
+                        <Button x:Name="PngToggle"
+                                Text="PNG Preview"
+                                Clicked="OnTogglePng"
+                                BackgroundColor="#A50021"
+                                TextColor="White"
+                                Padding="12,6"
+                                CornerRadius="4"
+                                FontSize="13"/>
+
+                        <Button x:Name="TiffToggle"
+                                Text="TIFF (Full)"
+                                Clicked="OnToggleTiff"
+                                BackgroundColor="#2D2D2D"
+                                TextColor="White"
+                                Padding="12,6"
+                                CornerRadius="4"
+                                FontSize="13"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- STATUS LABEL -->
+                <Label x:Name="StatusLabel"
+                       Text=""
+                       TextColor="#00FF88"
+                       VerticalOptions="Center"
+                       FontSize="13"/>
+
+            </HorizontalStackLayout>
+
+            <!-- IMAGE VIEWER AREA -->
+            <Border Grid.Row="3"
+                    Stroke="#A50021"
+                    StrokeThickness="1"
+                    Padding="10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="4"/>
+                </Border.StrokeShape>
+
+                <Grid>
+
+                    <Grid x:Name="ImageContainer">
+                        <ScrollView x:Name="ImageScroll"
+                                    Orientation="Both"
+                                    HorizontalScrollBarVisibility="Always"
+                                    VerticalScrollBarVisibility="Always">
+
+                            <Image x:Name="ResultImage"
+                                   Aspect="AspectFit">
+                                <Image.GestureRecognizers>
+                                    <PinchGestureRecognizer
+                                        PinchUpdated="OnPinchUpdated"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </ScrollView>
+
+                        <!-- EMPTY STATE -->
+                        <VerticalStackLayout x:Name="EmptyState"
+                                             HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Spacing="10">
+                            <Label Text="Select a TIFF file and click Process"
+                                   TextColor="#555555"
+                                   FontSize="16"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Supports size 32 and 34 grading from base size 30"
+                                   TextColor="#444444"
+                                   FontSize="13"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- ZOOM CONTROLS -->
+                    <VerticalStackLayout
+                        HorizontalOptions="End"
+                        VerticalOptions="Start"
+                        Spacing="8"
+                        Margin="10">
+
+                        <Button Text="+"
+                                WidthRequest="36"
+                                HeightRequest="36"
+                                CornerRadius="18"
+                                BackgroundColor="#A50021"
+                                TextColor="White"
+                                Clicked="OnZoomInClicked"
+                                FontSize="18"
+                                Padding="0"/>
+
+                        <Button Text="-"
+                                WidthRequest="36"
+                                HeightRequest="36"
+                                CornerRadius="18"
+                                BackgroundColor="#A50021"
+                                TextColor="White"
+                                Clicked="OnZoomOutClicked"
+                                FontSize="18"
+                                Padding="0"/>
+
+                        <Button Text="Fit"
+                                WidthRequest="36"
+                                HeightRequest="36"
+                                CornerRadius="18"
+                                BackgroundColor="#333333"
+                                TextColor="White"
+                                Clicked="OnFitClicked"
+                                FontSize="11"
+                                Padding="0"/>
+
+                        <Label x:Name="ZoomLabel"
+                               Text="100%"
+                               TextColor="White"
+                               FontSize="11"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                </Grid>
+            </Border>
+
+        </Grid>
+
+        <!-- LOADER OVERLAY -->
+        <Grid x:Name="LoaderOverlay"
+              BackgroundColor="#80000000"
+              IsVisible="False">
+
+            <VerticalStackLayout
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Spacing="15">
+
+                <ActivityIndicator
+                    IsRunning="True"
+                    Color="#A50021"
+                    WidthRequest="50"
+                    HeightRequest="50"/>
+
+                <Label x:Name="LoaderLabel"
+                       Text="Processing grading..."
+                       TextColor="White"
+                       FontSize="16"
+                       HorizontalOptions="Center"/>
+
+                <Label Text="This may take a minute for large files"
+                       TextColor="#888888"
+                       FontSize="12"
+                       HorizontalOptions="Center"/>
+
+            </VerticalStackLayout>
+        </Grid>
+
+    </Grid>
+
+</ContentView>

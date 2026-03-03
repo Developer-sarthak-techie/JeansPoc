@@ -10,6 +10,7 @@ public partial class MainTabs : ContentPage
 
         AttachTab(DashboardTab, LoadDashboard);
         AttachTab(ProductsTab, LoadProducts);
+        AttachTab(FeatureGradingTab, LoadFeatureGrading);
         AttachTab(SettingsTab, LoadSettings);
 
         SetActiveTab(DashboardTab);
@@ -59,6 +60,11 @@ public partial class MainTabs : ContentPage
         //     VerticalOptions = LayoutOptions.Center
         // };
         ContentArea.Content = new ProcessingPage();
+    }
+
+    void LoadFeatureGrading()
+    {
+        ContentArea.Content = new FeatureGradingPage();
     }
 
     void LoadSettings()
