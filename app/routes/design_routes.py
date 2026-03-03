@@ -19,6 +19,7 @@ from app.services.seamless_print_engine import generate_seamless_print
 from app.services.scale_sample_engine import generate_scaled_from_sample
 
 from app.services.dxf_projection_engine_600dpi import project_texture_on_dxf_600dpi
+from app.services.feature_grading_engine import FeatureGradingEngine
 
 
 
@@ -574,6 +575,32 @@ def save_upload(upload_file):
     return file_path
 
 
+@router.post("/engine/featureGrading")
+async def feature_grading(
+    texture: UploadFile = File(...),
+    size: int = Form(...),
+    dpi: int = Form(300)
+):
+    if size not in [32, 34]:
+        return {"error": "Supported sizes: 32, 34"}
+
+    os.makedirs("outputs", exist_ok=True)
+    input_path = save_upload(texture)
+
+    engine = FeatureGradingEngine(
+        BASE_DXF_30,
+        BASE_DXF_32,
+        BASE_DXF_34
+    )
+
+    tiff_path, png_path = engine.process(input_path, size, dpi=dpi)
+
+    return {
+        "status": "success",
+        "size": size,
+        "tiff": tiff_path,
+        "preview": png_path
+    }
 
 
 
