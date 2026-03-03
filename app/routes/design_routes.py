@@ -587,20 +587,69 @@ async def feature_grading(
     os.makedirs("outputs", exist_ok=True)
     input_path = save_upload(texture)
 
-    engine = FeatureGradingEngine(
-        BASE_DXF_30,
-        BASE_DXF_32,
-        BASE_DXF_34
-    )
+    try:
+        engine = FeatureGradingEngine(
+            BASE_DXF_30,
+            BASE_DXF_32,
+            BASE_DXF_34
+        )
 
-    tiff_path, png_path = engine.process(input_path, size, dpi=dpi)
+        tiff_path, png_path = engine.process(input_path, size, dpi=dpi)
 
-    return {
-        "status": "success",
-        "size": size,
-        "tiff": tiff_path,
-        "preview": png_path
-    }
+        return {
+            "status": "success",
+            "size": size,
+            "tiff": tiff_path,
+            "preview": png_path
+        }
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return {"status": "error", "message": str(e)}
+
+
+@router.post("/engine/featureGrading/verify")
+async def feature_grading_verify(
+    input_texture: UploadFile = File(...),
+    output_tiff: UploadFile = File(...),
+    size: int = Form(...),
+    dpi: int = Form(300)
+):
+    """
+    Verifies that a graded TIFF matches the expected size.
+    Upload both the original (size 30) TIFF and the graded output TIFF.
+    Returns a detailed per-piece accuracy report + annotated visual.
+    """
+    if size not in [32, 34]:
+        return {"error": "Supported sizes: 32, 34"}
+
+    os.makedirs("outputs", exist_ok=True)
+    input_path = save_upload(input_texture)
+
+    out_path = f"outputs/verify_upload_{uuid.uuid4().hex[:6]}.tiff"
+    with open(out_path, "wb") as f:
+        shutil.copyfileobj(output_tiff.file, f)
+
+    try:
+        engine = FeatureGradingEngine(
+            BASE_DXF_30,
+            BASE_DXF_32,
+            BASE_DXF_34
+        )
+
+        report, report_path = engine.verify(input_path, out_path, size)
+
+        return {
+            "status": "success",
+            "summary": report["summary"],
+            "pieces": report["pieces"],
+            "visual_report": report["visual_report"],
+            "json_report": report_path,
+        }
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return {"status": "error", "message": str(e)}
 
 
 
