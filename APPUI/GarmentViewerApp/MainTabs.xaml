@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="GarmentViewerApp.MainTabs"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#0D0D0D">
+
+    <Grid ColumnDefinitions="240,*">
+
+        <!-- SIDEBAR -->
+        <VerticalStackLayout BackgroundColor="#111111"
+                             Padding="20"
+                             Spacing="12">
+
+          
+            <HorizontalStackLayout Spacing="10">
+                <Image Source="al.png"
+                       HeightRequest="80"
+                       WidthRequest="120"/>
+              
+            </HorizontalStackLayout>
+
+            <!-- Dashboard -->
+            <Border x:Name="DashboardTab"
+                    Padding="12"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="6"/>
+                </Border.StrokeShape>
+
+                <Label Text="Dashboard"
+                       TextColor="#EAEAEA"
+                       FontSize="15"/>
+            </Border>
+
+            <!-- Products -->
+            <Border x:Name="ProductsTab"
+                    Padding="12"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="6"/>
+                </Border.StrokeShape>
+
+                <Label Text="Process Engine"
+                       TextColor="#EAEAEA"
+                       FontSize="15"/>
+            </Border>
+
+            <!-- Settings -->
+            <Border x:Name="SettingsTab"
+                    Padding="12"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="6"/>
+                </Border.StrokeShape>
+
+                <Label Text="Settings"
+                       TextColor="#EAEAEA"
+                       FontSize="15"/>
+            </Border>
+
+        </VerticalStackLayout>
+
+        <!-- CONTENT -->
+        <ContentView x:Name="ContentArea"
+                     Grid.Column="1"
+                     BackgroundColor="#0D0D0D"/>
+
+    </Grid>
+</ContentPage>

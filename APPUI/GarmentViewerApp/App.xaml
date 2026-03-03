@@ -1,0 +1,25 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GarmentViewerApp"
+             x:Class="GarmentViewerApp.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            
+            </ResourceDictionary.MergedDictionaries>
+
+                   <!-- DARK THEME -->
+        <Color x:Key="DarkPageBackground">#0E0E0E</Color>
+        <Color x:Key="DarkPanelBackground">#1A1A1A</Color>
+        <Color x:Key="DarkHeaderBackground">#141414</Color>
+        <Color x:Key="DarkPrimaryText">White</Color>
+        <Color x:Key="DarkSecondaryText">Gray</Color>
+        <Color x:Key="DarkAccentColor">#00FF88</Color>
+        </ResourceDictionary>
+     
+
+    </Application.Resources>
+</Application>

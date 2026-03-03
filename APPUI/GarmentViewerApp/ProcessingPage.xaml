@@ -1,0 +1,165 @@
+<ContentView
+    x:Class="GarmentViewerApp.ProcessingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#0E0E0E">
+
+    <Grid>
+
+        <!-- MAIN CONTENT -->
+        <Grid Padding="30"
+              RowDefinitions="Auto,Auto,Auto,*"
+              RowSpacing="20">
+
+            <Label Text="Texture Processing"
+                   FontSize="24"
+                   TextColor="White" />
+
+            <HorizontalStackLayout Grid.Row="1" Spacing="15">
+                <Button Text="Select Texture"
+                        Clicked="OnPickFileClicked"
+                        BackgroundColor="#A50021"
+                        TextColor="White"/>
+
+                <Label x:Name="SelectedFileLabel"
+                       Text="No file selected"
+                       VerticalOptions="Center"
+                       TextColor="Gray"/>
+            </HorizontalStackLayout>
+
+      <HorizontalStackLayout Grid.Row="2" Spacing="15">
+
+    <Label Text="Size:"
+           VerticalOptions="Center"
+           TextColor="White"/>
+
+    <HorizontalStackLayout Spacing="10">
+
+        <Button x:Name="Size30"
+                Text="30"
+                Clicked="OnSizeClicked"
+                BackgroundColor="#A50021"
+                TextColor="White"
+                WidthRequest="60"/>
+
+        <Button x:Name="Size32"
+                Text="32"
+                Clicked="OnSizeClicked"
+                BackgroundColor="#1E1E1E"
+                TextColor="White"
+                WidthRequest="60"/>
+
+        <Button x:Name="Size34"
+                Text="34"
+                Clicked="OnSizeClicked"
+                BackgroundColor="#1E1E1E"
+                TextColor="White"
+                WidthRequest="60"/>
+
+    </HorizontalStackLayout>
+
+    <Button x:Name="ProcessButton"
+            Text="Process"
+            Clicked="OnProcessClicked"
+            BackgroundColor="#A50021"
+            TextColor="White"/>
+
+</HorizontalStackLayout>
+
+           <Border Grid.Row="3"
+        Stroke="#A50021"
+        StrokeThickness="1"
+        Padding="10">
+
+    <Grid>
+
+
+<Grid x:Name="ImageContainer">
+
+        <!-- Scrollable Image -->
+      <ScrollView x:Name="ImageScroll"
+            Orientation="Both"
+            HorizontalScrollBarVisibility="Always"
+            VerticalScrollBarVisibility="Always">
+
+            <Image x:Name="ResultImage"
+                   Aspect="AspectFit">
+                <Image.GestureRecognizers>
+                    <PinchGestureRecognizer
+                        PinchUpdated="OnPinchUpdated"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+        </ScrollView>
+        </Grid>
+
+        <!-- Zoom Controls -->
+        <VerticalStackLayout
+            HorizontalOptions="End"
+            VerticalOptions="Start"
+            Spacing="10"
+            Margin="10">
+
+            <Button Text="+"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    CornerRadius="20"
+                    BackgroundColor="#A50021"
+                    TextColor="White"
+                    Clicked="OnZoomInClicked"/>
+
+            <Button Text="-"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    CornerRadius="20"
+                    BackgroundColor="#A50021"
+                    TextColor="White"
+                    Clicked="OnZoomOutClicked"/>
+
+            <Button Text="⤢"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    CornerRadius="20"
+                    BackgroundColor="#333333"
+                    TextColor="White"
+                    Clicked="OnResetClicked"/>
+
+                    <Label x:Name="ZoomLabel"
+                           Text="Zoom: 100%"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+
+        </VerticalStackLayout>
+
+    </Grid>
+</Border>
+
+        </Grid>
+
+        <!-- LOADER OVERLAY -->
+        <Grid x:Name="LoaderOverlay"
+              BackgroundColor="#80000000"
+              IsVisible="False">
+
+            <VerticalStackLayout
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Spacing="15">
+
+                <ActivityIndicator
+                    IsRunning="True"
+                    Color="#A50021"
+                    WidthRequest="50"
+                    HeightRequest="50"/>
+
+                <Label Text="Processing..."
+                       TextColor="White"
+                       HorizontalOptions="Center"/>
+
+            </VerticalStackLayout>
+
+        </Grid>
+
+    </Grid>
+
+</ContentView>

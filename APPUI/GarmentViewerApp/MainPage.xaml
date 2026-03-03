@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="GarmentViewerApp.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#0E0E0E">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- ================= HEADER ================= -->
+        <Grid Grid.Row="0"
+              Padding="15"
+              BackgroundColor="#141414"
+              ColumnDefinitions="Auto,*,Auto">
+
+            <HorizontalStackLayout Spacing="10">
+                <!-- <Image Source="al.png"
+                       HeightRequest="80"
+                       WidthRequest="120"/> -->
+                <Label Text="Garment Viewer Pro"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+            <!-- <Picker x:Name="SizePicker"
+        Title="Select Size"
+        Grid.Row="1"
+        Margin="10">
+    <Picker.Items>
+        <x:String>30</x:String>
+        <x:String>32</x:String>
+        <x:String>34</x:String>
+    </Picker.Items>
+</Picker>
+
+<Button Text="Process"
+        Grid.Row="1"
+        Grid.Column="2"
+        Clicked="OnProcessClicked"/> -->
+
+            <Label Grid.Column="2"
+                   Text="Ready"
+                   TextColor="#00FF88"
+                   VerticalOptions="Center"
+                   HorizontalOptions="End"/>
+        </Grid>
+
+
+        <!-- ================= MAIN AREA ================= -->
+        <Grid Grid.Row="1"
+              ColumnDefinitions="80,*,260"
+              BackgroundColor="#111111">
+
+            <!-- 🔷 LEFT TOOL PANEL -->
+            <VerticalStackLayout
+                BackgroundColor="#1A1A1A"
+                Padding="10"
+                Spacing="20">
+
+                <Button Text="📂"
+                        Clicked="OnSelectImageClicked"
+                        BackgroundColor="#2D2D2D"
+                        TextColor="White"
+                        HeightRequest="50"/>
+
+                <Button Text="🔍+"
+                        Clicked="OnZoomInClicked"
+                        BackgroundColor="#2D2D2D"
+                        TextColor="White"
+                        HeightRequest="50"/>
+
+                <Button Text="🔍-"
+                        Clicked="OnZoomOutClicked"
+                        BackgroundColor="#2D2D2D"
+                        TextColor="White"
+                        HeightRequest="50"/>
+
+                <Button Text="🔄"
+                        Clicked="OnRotateClicked"
+                        BackgroundColor="#2D2D2D"
+                        TextColor="White"
+                        HeightRequest="50"/>
+
+                <Button Text="🎯"
+                        Clicked="OnFitClicked"
+                        BackgroundColor="#2D2D2D"
+                        TextColor="White"
+                        HeightRequest="50"/>
+
+                <Button Text="♻"
+                        Clicked="OnResetClicked"
+                        BackgroundColor="#2D2D2D"
+                        TextColor="White"
+                        HeightRequest="50"/>
+
+            </VerticalStackLayout>
+
+
+            <!-- 🔷 IMAGE VIEWER -->
+            <Grid Grid.Column="1"
+                  BackgroundColor="#0F0F0F">
+
+                <ScrollView Orientation="Both">
+                    <Grid>
+                        <Image x:Name="MainImage"
+                               Aspect="AspectFit"
+                               AnchorX="0.5"
+                               AnchorY="0.5"/>
+                    </Grid>
+                </ScrollView>
+
+            </Grid>
+
+
+            <!-- 🔷 RIGHT INSPECTOR PANEL -->
+            <VerticalStackLayout Grid.Column="2"
+                                 BackgroundColor="#1A1A1A"
+                                 Padding="20"
+                                 Spacing="20">
+
+                <Label Text="Inspector"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       FontSize="16"/>
+
+                <Label Text="Zoom"
+                       TextColor="Gray"/>
+
+                <Slider x:Name="ZoomSlider"
+                        Minimum="0.1"
+                        Maximum="5"
+                        ValueChanged="OnZoomSliderChanged"/>
+
+                <Label x:Name="ZoomLabel"
+                       Text="100%"
+                       TextColor="White"/>
+
+                <Label Text="Display Options"
+                       TextColor="Gray"/>
+
+                <Switch x:Name="GridToggle"
+                        Toggled="OnGridToggled"/>
+
+                <Label Text="Show Grid"
+                       TextColor="White"/>
+
+                <Button Text="Export Snapshot"
+                        BackgroundColor="#2D2D2D"
+                        TextColor="White"/>
+
+            </VerticalStackLayout>
+
+        </Grid>
+
+
+        <!-- ================= STATUS BAR ================= -->
+        <Grid Grid.Row="2"
+              BackgroundColor="#141414"
+              Padding="10"
+              ColumnDefinitions="*,Auto">
+
+            <Label Text="Resolution: -"
+                   TextColor="Gray"/>
+                   <!-- 🔷 IMAGE METADATA FOOTER -->
+
+            <Label Text="© Binmile Team"
+                   Grid.Column="1"
+                   TextColor="Gray"
+                   HorizontalOptions="End"/>
+        </Grid>
+        <Grid Grid.Row="3"
+      BackgroundColor="#0E0E0E"
+      Padding="10"
+      ColumnDefinitions="*,*,*,*,*">
+
+    <Label x:Name="ResolutionLabel"
+           Text="Resolution: -"
+           TextColor="LightGray"
+           FontSize="12"/>
+
+    <Label x:Name="DpiLabel"
+           Grid.Column="1"
+           Text="DPI: -"
+           TextColor="LightGray"
+           FontSize="12"/>
+
+    <Label x:Name="PixelLabel"
+           Grid.Column="2"
+           Text="Pixels: -"
+           TextColor="LightGray"
+           FontSize="12"/>
+
+    <Label x:Name="MegaPixelLabel"
+           Grid.Column="3"
+           Text="MP: -"
+           TextColor="LightGray"
+           FontSize="12"/>
+
+    <Label x:Name="FileSizeLabel"
+           Grid.Column="4"
+           HorizontalOptions="End"
+           Text="Size: -"
+           TextColor="LightGray"
+           FontSize="12"/>
+</Grid>
+
+
+    </Grid>
+
+</ContentView>

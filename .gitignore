@@ -1,0 +1,92 @@
+# ========== Python ==========
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# ========== .NET / MAUI ==========
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+packages/
+*.nupkg
+publish/
+TestResults/
+
+# ========== IDEs ==========
+.vs/
+.idea/
+.vscode/
+.history/
+
+# ========== OS Files ==========
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========== Environment / Secrets ==========
+.env
+.env.*
+appsettings.Development.json
+appsettings.Local.json
+
+# ========== Generated / Runtime Directories ==========
+outputs/
+uploads/
+temp/
+fabric_rolls/
+images/
+BCK/
+
+# ========== Large Binary Formats ==========
+*.tiff
+*.tif
+*.bmp
+*.mp4
+*.avi
+*.mov
+*.iso
+*.dmg
+
+# ========== Archives / Executables ==========
+*.zip
+*.rar
+*.7z
+*.tar.gz
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+
+# ========== Database ==========
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# ========== Logs / Temp ==========
+*.log
+*.cache
+*.tmp
+*.bak
+
+# ========== Large root-level images ==========
+/*.png
+/*.jpg
+/*.jpeg
+
+# ========== Template images (keep DXF files) ==========
+app/templates/*.png
+app/templates/patterns/
+
+# ========== Orphaned files ==========
+SettingsPage.xaml
