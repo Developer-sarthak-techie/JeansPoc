@@ -65,6 +65,21 @@
                        FontSize="15"/>
             </Border>
 
+            <!-- TIFF Viewer -->
+            <Border x:Name="TiffViewerTab"
+                    Padding="12"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="6"/>
+                </Border.StrokeShape>
+
+                <Label Text="TIFF Viewer"
+                       TextColor="#EAEAEA"
+                       FontSize="15"/>
+            </Border>
+
             <!-- Settings -->
             <Border x:Name="SettingsTab"
                     Padding="12"

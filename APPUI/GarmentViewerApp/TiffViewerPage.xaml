@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="GarmentViewerApp.TiffViewerPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#0E0E0E">
+
+    <Grid>
+
+        <!-- MAIN CONTENT -->
+        <Grid Padding="30"
+              RowDefinitions="Auto,Auto,*"
+              RowSpacing="20">
+
+            <!-- HEADER -->
+            <Label Text="TIFF Viewer"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White" />
+
+            <!-- FILE PICKER ROW -->
+            <HorizontalStackLayout Grid.Row="1" Spacing="15">
+                <Button Text="Select TIFF File"
+                        Clicked="OnPickFileClicked"
+                        BackgroundColor="#A50021"
+                        TextColor="White"
+                        Padding="16,10"
+                        CornerRadius="6"/>
+
+                <Label x:Name="SelectedFileLabel"
+                       Text="No file selected"
+                       VerticalOptions="Center"
+                       TextColor="Gray"
+                       FontSize="14"/>
+            </HorizontalStackLayout>
+
+            <!-- IMAGE VIEWER AREA -->
+            <Border Grid.Row="2"
+                    Stroke="#A50021"
+                    StrokeThickness="1"
+                    Padding="10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="4"/>
+                </Border.StrokeShape>
+
+                <Grid>
+
+                    <Grid x:Name="ImageContainer">
+                        <ScrollView x:Name="ImageScroll"
+                                    Orientation="Both"
+                                    HorizontalScrollBarVisibility="Always"
+                                    VerticalScrollBarVisibility="Always">
+
+                            <Image x:Name="TiffImage"
+                                   Aspect="AspectFit">
+                                <Image.GestureRecognizers>
+                                    <PinchGestureRecognizer
+                                        PinchUpdated="OnPinchUpdated"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </ScrollView>
+
+                        <!-- EMPTY STATE -->
+                        <VerticalStackLayout x:Name="EmptyState"
+                                             HorizontalOptions="Center"
+                                             VerticalOptions="Center"
+                                             Spacing="10">
+                            <Label Text="Select a TIFF file to view"
+                                   TextColor="#555555"
+                                   FontSize="16"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Supports .tiff and .tif formats"
+                                   TextColor="#444444"
+                                   FontSize="13"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- ZOOM CONTROLS -->
+                    <VerticalStackLayout
+                        HorizontalOptions="End"
+                        VerticalOptions="Start"
+                        Spacing="8"
+                        Margin="10">
+
+                        <Button Text="+"
+                                WidthRequest="36"
+                                HeightRequest="36"
+                                CornerRadius="18"
+                                BackgroundColor="#A50021"
+                                TextColor="White"
+                                Clicked="OnZoomInClicked"
+                                FontSize="18"
+                                Padding="0"/>
+
+                        <Button Text="-"
+                                WidthRequest="36"
+                                HeightRequest="36"
+                                CornerRadius="18"
+                                BackgroundColor="#A50021"
+                                TextColor="White"
+                                Clicked="OnZoomOutClicked"
+                                FontSize="18"
+                                Padding="0"/>
+
+                        <Button Text="Fit"
+                                WidthRequest="36"
+                                HeightRequest="36"
+                                CornerRadius="18"
+                                BackgroundColor="#333333"
+                                TextColor="White"
+                                Clicked="OnFitClicked"
+                                FontSize="11"
+                                Padding="0"/>
+
+                        <Label x:Name="ZoomLabel"
+                               Text="100%"
+                               TextColor="White"
+                               FontSize="11"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+
+                    <!-- RESOLUTION LEGEND (bottom right) -->
+                    <Border x:Name="ResolutionLegend"
+                            HorizontalOptions="End"
+                            VerticalOptions="End"
+                            Margin="10"
+                            Padding="12,8"
+                            BackgroundColor="#CC1A1A1A"
+                            StrokeThickness="0"
+                            IsVisible="False">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="6"/>
+                        </Border.StrokeShape>
+
+                        <Label x:Name="ResolutionLabel"
+                               Text="— × — px"
+                               TextColor="White"
+                               FontSize="13"
+                               FontAttributes="Bold"/>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+        </Grid>
+
+        <!-- LOADER OVERLAY -->
+        <Grid x:Name="LoaderOverlay"
+              BackgroundColor="#80000000"
+              IsVisible="False">
+
+            <VerticalStackLayout
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Spacing="15">
+
+                <ActivityIndicator
+                    IsRunning="True"
+                    Color="#A50021"
+                    WidthRequest="50"
+                    HeightRequest="50"/>
+
+                <Label Text="Loading TIFF..."
+                       TextColor="White"
+                       FontSize="16"
+                       HorizontalOptions="Center"/>
+
+            </VerticalStackLayout>
+        </Grid>
+
+    </Grid>
+
+</ContentView>

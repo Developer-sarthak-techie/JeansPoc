@@ -4,7 +4,7 @@ import cv2
 import ezdxf
 import numpy as np
 import shutil
-from fastapi import APIRouter, UploadFile, File, Form
+from fastapi import APIRouter, UploadFile, File, Form, Query
 from app.services.dimension_pattern_engine import generate_scaled_pattern
 from app.services.dxf_projection_engine import project_texture_on_dxf
 from app.services.fabric_roll_engine import generate_fabric_roll
@@ -573,6 +573,24 @@ def save_upload(upload_file):
         shutil.copyfileobj(upload_file.file, buffer)
 
     return file_path
+
+
+@router.get("/engine/image-info")
+async def get_image_info(path: str = Query(..., description="Full path to image file")):
+    """Returns width, height, dpi for TIFF/image files (for TIFF Viewer)."""
+    if not path or not os.path.isfile(path):
+        return {"error": "File not found", "path": path}
+    try:
+        from PIL import Image
+        Image.MAX_IMAGE_PIXELS = None
+        with Image.open(path) as img:
+            w, h = img.size
+            dpi_info = img.info.get("dpi")
+            dpi_x = dpi_info[0] if dpi_info and len(dpi_info) >= 1 else None
+            dpi_y = dpi_info[1] if dpi_info and len(dpi_info) >= 2 else None
+        return {"width": w, "height": h, "dpi_x": dpi_x, "dpi_y": dpi_y}
+    except Exception as e:
+        return {"error": str(e)}
 
 
 @router.post("/engine/featureGrading")

@@ -11,6 +11,7 @@ public partial class MainTabs : ContentPage
         AttachTab(DashboardTab, LoadDashboard);
         AttachTab(ProductsTab, LoadProducts);
         AttachTab(FeatureGradingTab, LoadFeatureGrading);
+        AttachTab(TiffViewerTab, LoadTiffViewer);
         AttachTab(SettingsTab, LoadSettings);
 
         SetActiveTab(DashboardTab);
@@ -65,6 +66,11 @@ public partial class MainTabs : ContentPage
     void LoadFeatureGrading()
     {
         ContentArea.Content = new FeatureGradingPage();
+    }
+
+    void LoadTiffViewer()
+    {
+        ContentArea.Content = new TiffViewerPage();
     }
 
     void LoadSettings()
